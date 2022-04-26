@@ -9,13 +9,12 @@ const highScore = document.querySelector('.highscore');
 const message = document.querySelector('.message');
 
 class Guess {
-  constructor(random, correctNumber) {
+  constructor(random, correctNumber, guessNumber) {
     this.random = random;
     this.correctNumber = correctNumber;
     this.guessNumber = guessNumber;
     console.log(this.random);
   }
-  check() {}
   again() {
     score.textContent = 20;
     this.correctNumber.textContent = '?';
@@ -29,6 +28,8 @@ class Guess {
     if (Number(this.guessNumber.value) > this.random)
       message.textContent = '💹 Too High!';
     score.textContent = Number(score.textContent) - 1;
+    if (Number(score.textContent) === 0)
+      message.textContent = '💥 You lost the game!';
   }
   showSuccess() {
     this.correctNumber.textContent = this.random;
@@ -45,6 +46,8 @@ const newGuess = new Guess(
 );
 
 checkBtn.addEventListener('click', () => {
+  if (Number(score.textContent) === 0) return;
+
   if (Number(guessNumber.value) === newGuess.random) {
     newGuess.showSuccess();
   }
