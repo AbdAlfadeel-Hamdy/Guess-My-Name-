@@ -64,7 +64,8 @@ const newGuess = new Guess(
 
 // Event Handlers
 checkBtn.addEventListener('click', () => {
-  if (Number(newGuess.score.textContent) === 0) return;
+  if (Number(newGuess.score.textContent) === 0 || !newGuess.guessNumber.value)
+    return;
 
   if (Number(newGuess.guessNumber.value) === newGuess.random) {
     newGuess.showSuccess();
