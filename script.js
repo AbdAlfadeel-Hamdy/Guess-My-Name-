@@ -1,5 +1,5 @@
 'use strict';
-
+// Constants
 const checkBtn = document.querySelector('.check');
 const againBtn = document.querySelector('.again');
 const correctNumber = document.querySelector('.number');
@@ -8,50 +8,67 @@ const score = document.querySelector('.score');
 const highScore = document.querySelector('.highscore');
 const message = document.querySelector('.message');
 
+// Class
 class Guess {
-  constructor(random, correctNumber, guessNumber) {
+  constructor(random, correctNumber, guessNumber, score, highScore, message) {
     this.random = random;
     this.correctNumber = correctNumber;
     this.guessNumber = guessNumber;
+    this.score = score;
+    this.highScore = highScore;
+    this.message = message;
+    this.highestSoFar;
     console.log(this.random);
   }
   again() {
-    score.textContent = 20;
+    this.score.textContent = 20;
     this.correctNumber.textContent = '?';
     document.querySelector('body').style.backgroundColor = '#222';
-    message.textContent = 'Start guessing...';
+    this.message.textContent = 'Start guessing...';
     this.guessNumber.value = '';
   }
   updateDisplay() {
     if (Number(this.guessNumber.value) < this.random)
-      message.textContent = '📉 Too Low!';
+      this.message.textContent = '📉 Too Low!';
     if (Number(this.guessNumber.value) > this.random)
-      message.textContent = '💹 Too High!';
+      this.message.textContent = '💹 Too High!';
     score.textContent = Number(score.textContent) - 1;
     if (Number(score.textContent) === 0)
-      message.textContent = '💥 You lost the game!';
+      this.message.textContent = '💥 You lost the game!';
   }
   showSuccess() {
     this.correctNumber.textContent = this.random;
     document.querySelector('body').style.backgroundColor = '#60b347';
-    message.textContent = '🎉 Correct Number!';
-    highScore.textContent = score.textContent;
+    this.message.textContent = '🎉 Correct Number!';
+    this.highestSoFar =
+      Number(this.score.textContent) > Number(this.highestSoFar) ||
+      this.highestSoFar === undefined
+        ? this.score.textContent
+        : this.highestSoFar;
+    highScore.textContent = this.highestSoFar;
+    console.log(this.highestSoFar);
+    console.log(this.score.textContent);
   }
 }
 
+// Instant
 const newGuess = new Guess(
   Math.floor(Math.random() * 20 + 1),
   correctNumber,
-  guessNumber
+  guessNumber,
+  score,
+  highScore,
+  message
 );
 
+// Event Handlers
 checkBtn.addEventListener('click', () => {
-  if (Number(score.textContent) === 0) return;
+  if (Number(newGuess.score.textContent) === 0) return;
 
-  if (Number(guessNumber.value) === newGuess.random) {
+  if (Number(newGuess.guessNumber.value) === newGuess.random) {
     newGuess.showSuccess();
   }
-  if (Number(guessNumber.value) !== newGuess.random) {
+  if (Number(newGuess.guessNumber.value) !== newGuess.random) {
     newGuess.updateDisplay();
   }
 });
