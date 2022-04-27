@@ -18,7 +18,6 @@ class Guess {
     this.highScore = highScore;
     this.message = message;
     this.highestSoFar;
-    console.log(this.random);
   }
   again() {
     this.score.textContent = 20;
@@ -46,8 +45,6 @@ class Guess {
         ? this.score.textContent
         : this.highestSoFar;
     highScore.textContent = this.highestSoFar;
-    console.log(this.highestSoFar);
-    console.log(this.score.textContent);
   }
 }
 
