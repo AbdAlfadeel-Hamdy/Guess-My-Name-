@@ -23,6 +23,8 @@ class Guess {
     this.score.textContent = 20;
     this.correctNumber.textContent = '?';
     document.querySelector('body').style.backgroundColor = '#222';
+    document.querySelector('.number').style.width = '15rem';
+
     this.message.textContent = 'Start guessing...';
     this.guessNumber.value = '';
   }
@@ -38,6 +40,7 @@ class Guess {
   showSuccess() {
     this.correctNumber.textContent = this.random;
     document.querySelector('body').style.backgroundColor = '#60b347';
+    document.querySelector('.number').style.width = '30rem';
     this.message.textContent = '🎉 Correct Number!';
     this.highestSoFar =
       Number(this.score.textContent) > Number(this.highestSoFar) ||
