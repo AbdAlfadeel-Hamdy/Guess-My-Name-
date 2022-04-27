@@ -21,6 +21,7 @@ class Guess {
   }
   again() {
     this.score.textContent = 20;
+    this.random = Math.floor(Math.random() * 20 + 1);
     this.correctNumber.textContent = '?';
     document.querySelector('body').style.backgroundColor = '#222';
     document.querySelector('.number').style.width = '15rem';
